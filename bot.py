@@ -9,7 +9,7 @@ intents = Intents.default()
 intents.messages = True
 
 class RSSBot(Bot):
-    time = "300" # defalt 5 minutes
+    time = 5*60 # defalt 5 minutes
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -87,14 +87,14 @@ async def info(ctx: Context):
 
 @client.command(name="갱신정보")
 async def info(ctx: Context):
-    await ctx.send(f"[{ctx.guild.name}] RSS 피드 갱신 주기 : {client.getTime()} ")
+    await ctx.send(f"[{ctx.guild.name}] RSS 피드 갱신 주기 : {client.getTime()}초")
 
 
 @client.command(name="갱신설정")
-async def info(ctx: Context, time: str):
+async def info(ctx: Context, time: int):
     old_time = client.getTime()
     client.updateTime(time)
-    await ctx.send(f"[{ctx.guild.name}] RSS 피드 갱신 주기 변경! -> {old_time} 에서 {client.getTime()} ")
+    await ctx.send(f"[{ctx.guild.name}] RSS 피드 갱신 주기 변경! -> {old_time}초 에서 {client.getTime()}초")
 
 @client.command(name="봇정보")
 async def info(ctx: Context):
