@@ -1,6 +1,6 @@
 # [Discord Bot] RSS Feed Reader 
 
-This is a simple bot that monitors RSS feeds and announces when new items show up in the feeds.
+RSS 피드를 모니터링하고 피드가 갱신되면 디스코드 채널로 알리는 간단한 봇입니다.
 
 ## prerequisites
 
