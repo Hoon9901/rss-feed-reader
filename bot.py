@@ -25,8 +25,7 @@ async def on_ready():
 
     print("We're alive!!!")
 
-
-@client.command()
+@client.command(name="추가")
 async def add(ctx: Context, feed_url: str):
     guilds = db.get("feeds", default={})
     feeds = guilds.get(str(ctx.guild.id), [])
@@ -36,10 +35,10 @@ async def add(ctx: Context, feed_url: str):
     guilds[str(ctx.guild.id)] = feeds
     db.set("feeds", guilds)
 
-    await ctx.send(f"Added `{feed_url}` to the {ctx.guild.name} feed list")
+    await ctx.send(f"피드 목록에  `{feed_url}` 추가됨! [{ctx.guild.name}]")
 
 
-@client.command()
+@client.command(name="삭제")
 async def remove(ctx: Context, feed_url: str):
     guilds = db.get("feeds", default={})
     feeds = guilds.get(str(ctx.guild.id), [])
@@ -47,35 +46,44 @@ async def remove(ctx: Context, feed_url: str):
     try:
         feeds.remove(feed_url)
     except ValueError:
-        await ctx.send(f"`{feed_url}` was already removed from the {ctx.guild.name} feed list")
+        await ctx.send(f"[{ctx.guild.name}] `{feed_url}` 피드 목록에서 이미 삭제된 URL.")
     else:
         guilds[str(ctx.guild.id)] = feeds
         db.set("feeds", guilds)
 
-        await ctx.send(f"Removed `{feed_url}` to the {ctx.guild.name} feed list")
+        await ctx.send(f"[{ctx.guild.name}] `{feed_url}` 삭제됨. ")
 
 
-@client.command(name="list")
+@client.command(name="목록")
 async def list_command(ctx: Context):
     guilds = db.get("feeds", default={})
     feeds = guilds.get(str(ctx.guild.id), [])
-    feed_list = "\n".join(feeds) if feeds else "*No Feeds Found*"
-    await ctx.send(f"**Feed List**\n{feed_list}")
+    feed_list = "\n".join(feeds) if feeds else "*피드 찾을 수 없음!*"
+    await ctx.send(f"**피드 목록**\n{feed_list}")
 
 
-@client.command()
+@client.command(name="채널설정")
 async def setup(ctx: Context, channel: TextChannel):
     guilds = db.get("guilds", default={})
     guilds[str(channel.guild.id)] = channel.id
     db.set("guilds", guilds)
-    await ctx.send(f"Successfully set {channel.mention} as the RSS feed channel")
+    await ctx.send(f"[{ctx.guild.name}] {channel.mention} RSS 피드 채널로 성공적으로 설정되었습니다.")
 
 
-@client.command()
+@client.command(name="정보")
 async def info(ctx: Context):
     channel_id = db.get("guilds", default={}).get(str(ctx.guild.id), None)
     channel = ctx.guild.get_channel(channel_id).mention if channel_id is not None else "*Not Set*"
-    await ctx.send(f"The RSS feed channel for {ctx.guild.name} is {channel}")
+    await ctx.send(f"[{ctx.guild.name}] RSS 피드 채널은 이곳 -> {channel} ")
+
+@client.command(name="명령어")
+async def info(ctx: Context):
+    await ctx.send(f"rss!추가 <피드 URL> - 피드를 추가합니다.\n" 
+    + "rss!삭제 <피드 URL> - 피드를 삭제합니다.\n" 
+    + "rss!목록 - 피드 목록을 보여줍니다.\n" 
+    + "rss!채널설정 <채널> - RSS 피드 채널을 설정합니다.\n" 
+    + "rss!정보 - RSS 피드 채널 정보를 보여줍니다.\n" 
+    + "rss!명령어 - 명령어를 보여줍니다.")
 
 
 with ExitStack() as stack:
