@@ -1,6 +1,7 @@
 FROM python:3.10-slim
-WORKDIR /app					
-ADD . .					
+WORKDIR /usr/src/app
+
+ADD ./ ./
 
 RUN pip3 install poetry
 RUN poetry install

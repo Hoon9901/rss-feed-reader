@@ -101,8 +101,8 @@ async def info(ctx: Context):
     channel_id = db.get("guilds", default={}).get(str(ctx.guild.id), None)
     channel = ctx.guild.get_channel(channel_id).mention if channel_id is not None else "*Not Set*"
     await ctx.send(f"**RSS 피드 Reader 봇 정보입니다.**\n"
-    + "RSS 피드 채널 : " + channel + "\n"
-    + "RSS 갱신 주기 : " + client.getTime() + "초\n"
+    + f"RSS 피드 채널 : {channel}\n"
+    + f"RSS 피드 갱신 주기 : {client.getTime()}초\n"
     + "created by @hoon9901")
 
 
