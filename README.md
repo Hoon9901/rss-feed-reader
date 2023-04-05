@@ -1,14 +1,19 @@
-# Discord Bot: RSS Feed Reader
+# [Discord Bot] RSS Feed Reader 
 
 This is a simple bot that monitors RSS feeds and announces when new items show up in the feeds.
 
-## Live Stream
+## prerequisites
 
-Watch the video of me building this bot start to finish on [YouTube!!!](https://youtu.be/RCAJie1rmvU?t=1741)
+```
+Python >= 3.9
+Poetry
+```
 
-## Running
+## Installation & Run
 
-Create a file named `token.secret` and put your Discord bot token in that file. Next run the following commands:
+`token.secret` 이름의 파일을 생성하고 Discord Bot 토큰을 기입하세요.
+그리고 다음 명령어를 차례대로 실행합니다.
+
 ```shell
 pip install poetry
 poetry install
@@ -16,23 +21,22 @@ poetry run python bot.py
 ```
 
 ## Commands
+`rss!추가 <피드 URL>` 
+피드를 추가합니다.
 
-`rss!add [url to RSS feed]`
+`rss!삭제 <피드 URL>`
+피드를 삭제합니다.
 
-This will add an RSS feed to the bot for the current guild.
+`rss!목록`
+피드 목록을 보여줍니다.
 
-`rss!remove [url to RSS feed]`
+`rss!채널설정 <채널>`
+RSS 피드 채널을 설정합니다.
 
-This will remove an RSS feed from the bot for the current guild.
+`rss!정보`
+RSS 피드 채널 정보를 보여줍니다.
 
-`rss!list`
+`rss!명령어`
+명령어를 보여줍니다.
 
-This will list all of the RSS feeds that the bot is monitoring for the current guild.
-
-`rss!setup [text channel]`
-
-This will tell the bot which channel to announce new RSS feed items in. This must be run before the bot will function in a guild.
-
-`rss!info`
-
-Shows which channel the bot is set to use for new RSS feed item announcements.
+# 참고 

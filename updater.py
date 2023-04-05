@@ -51,7 +51,7 @@ async def update_feed(guild_id: str, feed_url: str, db: JSON_DB, client):
 async def handle_new_item(item: dict, guild_id: str, db: JSON_DB, client):
     channel = get_guild_feed_update_channel(db, guild_id, client)
     if channel:
-        await channel.send(f"**New Episode**\n{item['title']}\n{item['link']}")
+        await channel.send(f"**새로운 포스트!**\n{item['title']}\n{item['link']}")
 
 
 async def get_latest_feed(feed_url: str) -> list[dict[str, Any]]:
