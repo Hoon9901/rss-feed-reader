@@ -14,10 +14,6 @@ class RSSBot(Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.updates_scheduled = False
-    
-    def updateTime(self, time):
-        self.time = time
-        print(f"Updated time to {time} seconds.")
 
     def getTime(self):
         return self.time
@@ -30,7 +26,7 @@ client = RSSBot(intents=intents, command_prefix="rss!")
 async def on_ready():
     if not client.updates_scheduled:
         print(f"Starting the feed update loop {client.getTime()} seconds")
-        start(client.getTime(), client.loop, db, client)
+        start(client.loop, db, client)
 
     print("We're alive!!!")
 

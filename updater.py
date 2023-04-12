@@ -7,17 +7,17 @@ from typing import Any
 from nextcord import Client, TextChannel
 
 
-def start(time: int, loop, db: JSON_DB, client):
-    update_feeds(time, loop, db, client)
+def start(loop, db: JSON_DB, client):
+    update_feeds(loop, db, client)
 
 
-def schedule_update(time, loop, db: JSON_DB, client):
-    loop.call_later(time, update_feeds, loop, db, client)
+def schedule_update(loop, db: JSON_DB, client):
+    loop.call_later(5*60, update_feeds, loop, db, client)
     print("Scheduled the next feed update")
 
 
-def update_feeds(time, loop, db: JSON_DB, client):
-    schedule_update(time, loop, db, client)
+def update_feeds(loop, db: JSON_DB, client):
+    schedule_update(loop, db, client)
     loop.create_task(do_feed_update(db, client))
 
 
